@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="diff_robot">
+
+  <xacro:include filename="$(find diff_robot_description)/urdf/diff_robot_description.gazebo"/> 
+
+  <link name="base_footprint">
+  </link>
+  
+    <!-- origen del sistema de referencia del robot-->
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0.0 0 0.05" rpy="0 0 0"/>
+  </joint>
+  
+ <!-- cuerpo del robot robot-->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="5.0"/>
+      <!-- Inercia aproximada para un cilindro pequeño -->
+      <inertia
+        ixx="0.1" ixy="0.0" ixz="0.0"
+        iyy="0.1" iyz="0.0"
+        izz="0.1"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0.0 0 0" rpy="0 0 0"/>
+      <!-- Cilindro de radio 0.15 m y altura 0.10 m -->
+      <geometry>
+        <cylinder radius="0.12" length="0.02"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.0 0.2 0.8 1.0"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin xyz="0.0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.12" length="0.02"/>
+      </geometry>
+    </collision>
+    
+    
+       <collision name='rear_caster_collision'>
+      <origin xyz="-0.08 0 -0.025" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="0.025"/>
+      </geometry>
+    </collision>
+
+    <visual name='rear_caster_visual'>
+      <origin xyz="-0.08 0 -0.025" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="0.025"/>
+      </geometry>
+    </visual>
+
+    <collision name='front_caster_collision'>
+      <origin xyz="0.08 0 -0.025" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="0.025"/>
+      </geometry>
+    </collision>
+
+    <visual name='front_caster_visual'>
+      <origin xyz="0.08 0 -0.025" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="0.025"/>
+      </geometry>
+    </visual>
+  </link>
+  
+  
+
+  <!-- Rueda izquierda -->
+  <link name="left_wheel_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia
+        ixx="0.01" ixy="0.0" ixz="0.0"
+        iyy="0.01" iyz="0.0"
+        izz="0.01"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.570796 0"/>
+      <!-- Cilindro alineado con el eje Z (giro alrededor de Z) -->
+      <geometry>
+        <mesh filename="file://$(find diff_robot_description)/meshes/wheel.stl" scale="0.0025 0.0025 0.0025"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.05 0.05 0.05 1.0"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.02"/>
+      </geometry>
+    </collision>
+  </link>
+
+   
+  <!-- Rueda derecha -->
+  <link name="right_wheel_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia
+        ixx="0.01" ixy="0.0" ixz="0.0"
+        iyy="0.01" iyz="0.0"
+        izz="0.01"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -1.570796 0"/>
+      <geometry>
+        <mesh filename="file://$(find diff_robot_description)/meshes/wheel.stl" scale="0.0025 0.0025 0.0025"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.05 0.05 0.05 1.0"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.02"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Joint rueda izquierda -->
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel_link"/>
+    <!-- Lateral a la izquierda -->
+    <origin xyz="0.0 0.14 0.0" rpy="1.570796 0 0"/>
+    <!-- Giro en torno al eje Z -->
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- Joint rueda derecha -->
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel_link"/>
+    <!-- Lateral a la derecha -->
+    <origin xyz="0.0 -0.14 0.0" rpy="1.570796 0 0"/>
+    <!-- Giro en torno al eje Z -->
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  
+</robot>

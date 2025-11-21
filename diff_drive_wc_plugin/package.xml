@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>diff_drive_wc_plugin</name>
+  <version>0.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="william@todo.todo">william</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Gazebo / gz libraries (match CMake find_package) -->
+  <build_depend>gz-sim8</build_depend>
+  <build_depend>gz-math8</build_depend>
+  <build_depend>gz-transport14</build_depend>
+  <build_depend>gz-msgs10</build_depend>
+
+  <build_export_depend>gz-sim8</build_export_depend>
+  <build_export_depend>gz-math8</build_export_depend>
+  <build_export_depend>gz-transport14</build_export_depend>
+  <build_export_depend>gz-msgs10</build_export_depend>
+
+  <exec_depend>gz-sim8</exec_depend>
+  <exec_depend>gz-math8</exec_depend>
+  <exec_depend>gz-transport14</exec_depend>
+  <exec_depend>gz-msgs10</exec_depend>
+
+  <!-- SDFormat: allow multiple versions (Jammy/Noble/…) -->
+  <build_depend>sdformat14</build_depend>
+  <exec_depend>sdformat14</exec_depend>
+  <build_depend>sdformat13</build_depend>
+  <exec_depend>sdformat13</exec_depend>
+
+  <!-- Optional testing -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
