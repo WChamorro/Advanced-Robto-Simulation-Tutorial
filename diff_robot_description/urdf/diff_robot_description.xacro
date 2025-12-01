@@ -140,7 +140,7 @@
     <parent link="base_link"/>
     <child link="left_wheel_link"/>
     <!-- Lateral a la izquierda -->
-    <origin xyz="0.0 0.14 0.0" rpy="1.570796 0 0"/>
+    <origin xyz="0.0 0.14 0.0" rpy="-1.570796 0 0"/>
     <!-- Giro en torno al eje Z -->
     <axis xyz="0 0 1"/>
   </joint>
@@ -150,9 +150,168 @@
     <parent link="base_link"/>
     <child link="right_wheel_link"/>
     <!-- Lateral a la derecha -->
-    <origin xyz="0.0 -0.14 0.0" rpy="1.570796 0 0"/>
+    <origin xyz="0.0 -0.14 0.0" rpy="-1.570796 0 0"/>
     <!-- Giro en torno al eje Z -->
     <axis xyz="0 0 1"/>
+  </joint>
+
+    <!-- IMU -->
+    <link
+    name="imu_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.01" />
+      <inertia
+        ixx="0.0001"
+        ixy="0.0001"
+        ixz="0.0001"
+        iyy="0.0001"
+        iyz="0.0001"
+        izz="0.0001" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+
+      <geometry>
+        <box size="0.02 0.02 0.02"/> 
+      </geometry>
+      
+      <material
+        name="">
+        <color
+          rgba="1.0 0.0 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+        <geometry><box size="0.02 0.02 0.02"/> 
+        <box size="0.02 0.02 0.02"/> 
+      </geometry>
+      
+    </collision>
+  </link>
+
+
+  <joint
+    name="imu_frame_Joint"
+    type="fixed">
+    <origin
+      xyz="0.0 0.0 0.02"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="imu_link" />
+  </joint>
+
+
+  <!-- CAMERA -->
+  <link name="camera_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.09" />
+      <inertia
+        ixx="0.001"
+        ixy="0.001"
+        ixz="0.001"
+        iyy="0.001"
+        iyz="0.001"
+        izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+         <box size="0.04 0.02 0.03"/> 
+      </geometry>
+      <material
+        name="green">
+        <color
+          rgba="0.0 1.0 0.0 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+         <box size="0.04 0.02 0.03"/> 
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint
+    name="camera_joint"
+    type="fixed">
+    <origin
+      xyz="0 0.025 0.03"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="camera_link" />
+  </joint>
+
+
+    <!-- LIDAR -->
+
+    <link
+    name="lidar_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"  rpy="0 0 0" />
+      <mass
+        value="0.1" />
+      <inertia
+        ixx="0.001"
+        ixy="0.001"
+        ixz="0.001"
+        iyy="0.001"
+        iyz="0.001"
+        izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+
+      <geometry>
+        <box size="0.04 0.04 0.04"/> 
+      </geometry>
+      
+      <material
+        name="blue">
+        <color rgba="0 0 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"  rpy="0 0 0" />
+
+      <geometry>
+        <box size="0.04 0.04 0.04"/> 
+      </geometry>
+      
+    </collision>
+  </link>
+
+
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0.06" rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="lidar_link" />
   </joint>
 
   
